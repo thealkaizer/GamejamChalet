@@ -1,11 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Rewired;
 
 public class HammerAttack : MonoBehaviour {
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
+
+    //InputControls
+    internal Player CharacterPlayer;
+	private bool pokeInput, hammerInput;
+
+    //SphereColliders
     public SphereCollider pokeHitPoint;
     public SphereCollider hammerHitPoint;
     public SphereCollider hammerCrushArea;
@@ -31,15 +38,21 @@ public class HammerAttack : MonoBehaviour {
     // Functions
     // ------------------------------------------------------------------------
 
+    void Start() {
+        CharacterPlayer = ReInput.players.GetPlayer(0);
+    }
+
 	// Update is called once per frame
 	void Update () {
         this.updateAllColdowns();
+        pokeInput = CharacterPlayer.GetButtonDown("Poke");
+		hammerInput = CharacterPlayer.GetButtonDown("Hammer");
 
         // Handle inputs
-        if(Input.GetKeyDown(KeyCode.E)) {
+        if(pokeInput) {
             this.pokeAttack();
         }
-        else if(Input.GetKeyDown(KeyCode.T)) {
+        else if(hammerInput) {
             this.bigHammerAttack();
         }
     }

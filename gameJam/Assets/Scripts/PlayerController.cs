@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using Rewired;
 
 public class PlayerController : MonoBehaviour {
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
+    internal Player CharacterPlayer;
+
     public float walkingSpeed = 5f;
     private bool isWalking;
 
@@ -12,11 +15,15 @@ public class PlayerController : MonoBehaviour {
     // Functions
     // ------------------------------------------------------------------------
 
+    void Start() {
+        CharacterPlayer = ReInput.players.GetPlayer(0);
+    }
+
     // Update is called once per frame
     void Update() {
-        float horizontal    = Input.GetAxisRaw("Horizontal");
-        float verical       = Input.GetAxisRaw("Vertical");
-        this.handleMovement(horizontal, verical);
+        float horizontal    = CharacterPlayer.GetAxisRaw("Character Horizontal Axis");
+        float vertical       = CharacterPlayer.GetAxisRaw("Character Vertical Axis");
+        this.handleMovement(horizontal, vertical);
     }
 
     private void handleMovement(float horizontal, float vertical) {
