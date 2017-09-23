@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e240f552ac8b850498d8b7473de529bd, type: 3}
+  m_Name: Italian
+  m_EditorClassIdentifier: 
+  _yes: "S\xEC"
+  _no: No
+  _add: Aggiungere
+  _replace: Sostituire
+  _remove: Rimuovere
+  _cancel: Annulla
+  _none: Nessuna
+  _okay: Ok
+  _done: Fatto
+  _default: Valori Predefiniti
+  _elementAssignmentPrePollingWindowMessage: '... Centrare tutti i joystick ...'
+  _joystickElementAssignmentPollingWindowMessage: '... Press pulsante {0} ...'
+  _keyboardElementAssignmentPollingWindowMessage: '... Press pulsante {0} ...'
+  _elementAlreadyInUseCanReplace: "{0} gi\xE0 usato. Sostituiscilo?"
+  _elementAlreadyInUseCanReplace_conflictAllowed: "{0} gi\xE0 usato. Sostituiscilo?"
+  _restoreDefaultsWindowTitle: Valori Predefiniti
+  _restoreDefaultsWindowMessage_multiPlayer: "Questo ripristiner\xE0 gli ingressi
+    di default per tutti i giocatori. Sei sicuro?"
+  _keyboardColumnLabel: Tastiera
+  _controllerColumnLabel: Controllore
+  _doneButtonLabel: Fatto
+  _restoreDefaultsButtonLabel: Valori Predefiniti
