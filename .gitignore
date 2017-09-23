@@ -1,3 +1,8 @@
+# Perso ignore
+*debug-scene
+
+
+# gitignore - other things
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
