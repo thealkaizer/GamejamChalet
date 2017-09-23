@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e240f552ac8b850498d8b7473de529bd, type: 3}
+  m_Name: Turkish
+  m_EditorClassIdentifier: 
+  _yes: Evet
+  _no: "Hhay\u0131r"
+  _add: Eklemek
+  _replace: "De\u011Fi\u015Ftirmek"
+  _remove: "Kald\u0131r"
+  _cancel: "\u0130ptal"
+  _none: Yok
+  _okay: Tamam
+  _done: Tamam
+  _default: Standart
+  _elementAssignmentPrePollingWindowMessage: "... T\xFCm joystick ortala ..."
+  _joystickElementAssignmentPollingWindowMessage: "...  {0} d\xFC\u011Fmesine bas\u0131n
+    ..."
+  _keyboardElementAssignmentPollingWindowMessage: "...  {0} d\xFC\u011Fmesine bas\u0131n
+    ..."
+  _elementAlreadyInUseCanReplace: "{0} zaten kullan\u0131lm\u0131\u015F. de\u011Fi\u015Ftirilsin
+    mi?"
+  _elementAlreadyInUseCanReplace_conflictAllowed: "{0} zaten kullan\u0131lm\u0131\u015F.
+    de\u011Fi\u015Ftirilsin mi?"
+  _restoreDefaultsWindowTitle: Standart
+  _restoreDefaultsWindowMessage_multiPlayer: "Bu t\xFCm oyuncular i\xE7in varsay\u0131lan
+    giri\u015Flerini geri y\xFCkler. Emin misiniz?"
+  _keyboardColumnLabel: Klavye
+  _controllerColumnLabel: "Kontrol\xF6r"
+  _doneButtonLabel: Tamam
+  _restoreDefaultsButtonLabel: Standart

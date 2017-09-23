@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e240f552ac8b850498d8b7473de529bd, type: 3}
+  m_Name: German
+  m_EditorClassIdentifier: 
+  _yes: Ja
+  _no: Nein
+  _add: "Hinzuf\xFCgen"
+  _replace: Austauschen
+  _remove: Beseitigen
+  _cancel: Stornieren
+  _none: Keiner
+  _okay: Okay
+  _done: 'Gemacht '
+  _default: Standard
+  _elementAssignmentPrePollingWindowMessage: '... Zentrum Joysticks ...'
+  _joystickElementAssignmentPollingWindowMessage: "... Dr\xFBck den Knopf {0} ..."
+  _keyboardElementAssignmentPollingWindowMessage: "... Dr\xFBck den Knopf{0} ..."
+  _elementAlreadyInUseCanReplace: '{0} schon benutzt. Ersetze es?'
+  _elementAlreadyInUseCanReplace_conflictAllowed: '{0} schon benutzt. Ersetze es?'
+  _restoreDefaultsWindowTitle: Standard
+  _restoreDefaultsWindowMessage_multiPlayer: "Dadurch wird die Standardeing\xE4nge
+    f\xFCr alle Spieler wieder herstellen. Bist du sicher?"
+  _keyboardColumnLabel: Tastatur
+  _controllerColumnLabel: Regler
+  _doneButtonLabel: Gemacht!
+  _restoreDefaultsButtonLabel: Standard

@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e240f552ac8b850498d8b7473de529bd, type: 3}
+  m_Name: Portugese
+  m_EditorClassIdentifier: 
+  _yes: Sim
+  _no: "N\xE3o"
+  _add: Adicionar
+  _replace: Substituir
+  _remove: Remover
+  _cancel: Cancelar
+  _none: Nenhum
+  _okay: Ok
+  _done: Topo
+  _default: "Padr\xE3o"
+  _elementAssignmentPrePollingWindowMessage: '... Centralizar todos os joystickss
+    ...'
+  _joystickElementAssignmentPollingWindowMessage: "... Pressione o bot\xE3o {0} ..."
+  _keyboardElementAssignmentPollingWindowMessage: "... Pressione o bot\xE3o {0} ..."
+  _elementAlreadyInUseCanReplace: "{0} j\xE1 usado. Substitu\xED-lo?"
+  _elementAlreadyInUseCanReplace_conflictAllowed: "{0} j\xE1 usado. Substitu\xED-lo?"
+  _restoreDefaultsWindowTitle: "Restaurar Padr\xF5es"
+  _restoreDefaultsWindowMessage_multiPlayer: "Isso ir\xE1 restaurar as entradas padr\xE3o
+    para todos os jogadores. Voc\xEA tem certeza?"
+  _keyboardColumnLabel: Teclado
+  _controllerColumnLabel: Controlador
+  _doneButtonLabel: Topo
+  _restoreDefaultsButtonLabel: "Restaurar Padr\xF5es"
