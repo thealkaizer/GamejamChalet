@@ -23,6 +23,7 @@ public class HammerAttack : MonoBehaviour {
     private bool hammerIsReady          = true;
     public float hammerForceVertical    = 100f;
     public float hammerForceHorizontal  = 100f;
+    public float reducFactor            = 2f;
 
 
     // ------------------------------------------------------------------------
@@ -76,11 +77,12 @@ public class HammerAttack : MonoBehaviour {
         for(int i = 0;i < hitColliders.Length;i++) {
             if(hitColliders[i].gameObject.CompareTag("FatAnimal")) {
                 Rigidbody rb = hitColliders[i].gameObject.GetComponent<Rigidbody>();
-                Vector3 dir = hitColliders[i].transform.position - hammerHitPoint.gameObject.transform.position;
-                dir = Vector3.Normalize(dir);
+                Vector3 directionVector = hitColliders[i].transform.position - hammerHitPoint.gameObject.transform.position;
+                float distance = Vector3.Distance(hitColliders[i].transform.position, hammerHitPoint.gameObject.transform.position);
+                Vector3 directionNoraml = Vector3.Normalize(directionVector);
                 rb.velocity = new Vector3(0, 0, 0);
-                rb.AddForce((Vector3.up * hammerForceVertical));
-                rb.AddForce((dir * hammerForceHorizontal));
+                rb.AddForce((Vector3.up * hammerForceVertical) / Mathf.Pow(distance, reducFactor));
+                rb.AddForce((directionNoraml * hammerForceHorizontal) / Mathf.Pow(distance, reducFactor));
             }
         }
     }
