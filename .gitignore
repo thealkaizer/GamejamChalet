@@ -1,5 +1,5 @@
 # Perso ignore
-*debug-scene
+*Assets/*debug-scene*
 
 
 # gitignore - other things
