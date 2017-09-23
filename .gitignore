@@ -1,5 +1,6 @@
 # Perso ignore
 *gameJam/Assets/_Scenes/debug-scene*
+*gameJam/.vs*
 
 
 # gitignore - other things
