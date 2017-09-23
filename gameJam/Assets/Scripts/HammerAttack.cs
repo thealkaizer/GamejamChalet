@@ -8,7 +8,8 @@ public class HammerAttack : MonoBehaviour {
     // ------------------------------------------------------------------------
     public SphereCollider pokeHitPoint;
     public SphereCollider hammerHitPoint;
-    public SphereCollider hammerCrushPoint;
+    public SphereCollider hammerCrushArea;
+    public SphereCollider hammerPushArea;
 
     // Pole attack
     public float pokeColdown            = 1f; // Reload time in seconds
@@ -73,16 +74,26 @@ public class HammerAttack : MonoBehaviour {
         }
         this.hammerCurrentTimer = 0;
         this.hammerIsReady = false;
-        Collider[] hitColliders = Physics.OverlapSphere(hammerHitPoint.gameObject.transform.position, hammerHitPoint.radius);
+        Collider[] hitColliders = Physics.OverlapSphere(hammerHitPoint.gameObject.transform.position, hammerPushArea.radius);
         for(int i = 0;i < hitColliders.Length;i++) {
-            if(hitColliders[i].gameObject.CompareTag("FatAnimal")) {
-                Rigidbody rb = hitColliders[i].gameObject.GetComponent<Rigidbody>();
-                Vector3 directionVector = hitColliders[i].transform.position - hammerHitPoint.gameObject.transform.position;
-                float distance = Vector3.Distance(hitColliders[i].transform.position, hammerHitPoint.gameObject.transform.position);
-                Vector3 directionNoraml = Vector3.Normalize(directionVector);
-                rb.velocity = new Vector3(0, 0, 0);
-                rb.AddForce((Vector3.up * hammerForceVertical) / Mathf.Pow(distance, reducFactor));
-                rb.AddForce((directionNoraml * hammerForceHorizontal) / Mathf.Pow(distance, reducFactor));
+            Collider currentCollider = hitColliders[i];
+            if(currentCollider.gameObject.CompareTag("FatAnimal")) {
+                Rigidbody rb = currentCollider.gameObject.GetComponent<Rigidbody>();
+                Vector3 directionVector = currentCollider.transform.position - hammerHitPoint.gameObject.transform.position;
+                float distance = Vector3.Distance(currentCollider.transform.position, hammerHitPoint.gameObject.transform.position);
+                if(distance <= hammerCrushArea.radius) {
+                    Debug.Log("Crushed (Not implemented yet)");
+                    // In this case, is in crush area and mush apply the famous crush punishment!
+                    // Dev note: to be crushed, the center of animal position must be in crush area (Not just the collider)
+                    // TODO: Add action (And kill the poor animal)
+                }
+                else {
+                    // In this case, in push area but not in crush area
+                    Vector3 directionNoraml = Vector3.Normalize(directionVector);
+                    rb.velocity = new Vector3(0, 0, 0);
+                    rb.AddForce((Vector3.up * hammerForceVertical) / Mathf.Pow(distance, reducFactor));
+                    rb.AddForce((directionNoraml * hammerForceHorizontal) / Mathf.Pow(distance, reducFactor));
+                }
             }
         }
     }
