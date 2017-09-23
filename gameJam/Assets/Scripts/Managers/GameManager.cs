@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour {
     public float thresholdLoose = 95;
 
     public float balanceSensibility = 1;
+    public float balanceGapFactor = 1;
     public float currentBallanceLevel = 0;
 
     public int currentAnimalTrence = 0; // -1 if dogs, 1 if cats, 0 if perfect balance
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour {
         
         this.updateBalance();
         this.processBalanceActions();
+        Debug.Log(Mathf.Log10(nbAnimals));
     }
 
     /**
