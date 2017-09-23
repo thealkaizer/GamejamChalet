@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
+using DG.Tweening;
 
 public class HammerAttack : MonoBehaviour {
     // ------------------------------------------------------------------------
@@ -50,9 +51,11 @@ public class HammerAttack : MonoBehaviour {
 
         // Handle inputs
         if(pokeInput) {
+            Debug.Log("POKE");
             this.pokeAttack();
         }
         else if(hammerInput) {
+            Debug.Log("Hammer");
             this.bigHammerAttack();
         }
     }
@@ -85,6 +88,10 @@ public class HammerAttack : MonoBehaviour {
             // TODO Play a sound or something (UI warning..)?
             return;
         }
+
+        //Feedback
+        Camera.main.DOShakePosition(0.4f, 0.2f, 10, 80, true);
+
         this.hammerCurrentTimer = 0;
         this.hammerIsReady = false;
         Collider[] hitColliders = Physics.OverlapSphere(hammerHitPoint.gameObject.transform.position, hammerPushArea.radius);
