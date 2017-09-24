@@ -6,6 +6,8 @@ public class HoleControl : MonoBehaviour {
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
+    public GameManager gameManager;
+
     public float animalSinkingTime = 2f;
 
     public float    openingSpeed;
@@ -32,7 +34,7 @@ public class HoleControl : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if(!isOpen) {   
+        if(!isOpen) {
             this.currentOpeningTimer = 0;
             this.holeCollider.enabled = false;
             return;
@@ -54,7 +56,13 @@ public class HoleControl : MonoBehaviour {
     void OnTriggerEnter(Collider collider) {
         if(collider.gameObject.transform.CompareTag("FatAnimal")) {
             collider.enabled = false;
-            // TODO changé nombre de chien/chat
+            AnimalControl animal = collider.gameObject.GetComponent<AnimalControl>();
+            if(animal.id == animal.cat) {
+                gameManager.addOneCat();
+            }
+            else {
+                this.gameManager.addOneDog();
+            }
             Destroy(collider.gameObject, animalSinkingTime);
         };
     }
