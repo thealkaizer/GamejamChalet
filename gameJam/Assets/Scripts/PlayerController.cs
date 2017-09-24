@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
         float horizontal    = CharacterPlayer.GetAxisRaw("Character Horizontal Axis");
         float vertical       = CharacterPlayer.GetAxisRaw("Character Vertical Axis");
         this.handleMovement(horizontal, vertical);
