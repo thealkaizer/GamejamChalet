@@ -166,7 +166,6 @@ public class GameManager : MonoBehaviour {
     private float calculateNextSpawningTime(float currentSpeed) {
         //TODO At the moment, do nothing.
         currentSpeed -= 0.5f;
-        Debug.Log(currentSpeed);
         return Mathf.Clamp(currentSpeed, this.spawnSpeedMin, this.spawnSpeedMax);
     }
 

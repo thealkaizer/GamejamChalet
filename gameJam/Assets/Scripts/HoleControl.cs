@@ -29,6 +29,7 @@ public class HoleControl : MonoBehaviour {
     // ------------------------------------------------------------------------
 
     private void Start() {
+        this.holeCollider = this.GetComponent<Collider>();
         this.holeCollider.enabled = false;
     }
 
@@ -40,16 +41,25 @@ public class HoleControl : MonoBehaviour {
             return;
         }
         this.currentOpeningTimer += Time.deltaTime;
-        if(this.currentOpeningTimer <= this.openDuration) {
+        if(this.currentOpeningTimer <= this.openingSpeed) {
+            // Here, hole is opening
             this.isOpening = true;
-            // Scale to open
+            // TODO Scale to open
         }
-        else if(this.currentOpeningTimer <= this.closingSpeed) {
+        else if(this.currentOpeningTimer <= (this.openingSpeed + this.closingSpeed)) {
+            // Here, hole is full open
             this.isOpening = false;
         }
-        else {
+        else if(this.currentOpeningTimer <= (this.openingSpeed + this.closingSpeed + this.closingSpeed)){
+            // Now, hole is closing
             this.isClosing = true;
-            // Scale to close
+            // TODO Scale to close
+        }
+        else {
+            // Here, means hole must close now
+            this.isOpen = false;
+            this.isClosing = false;
+            this.isOpening = false;
         }
     }
 
