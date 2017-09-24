@@ -52,6 +52,7 @@ GameObject:
   - component: {fileID: 33694141322151628}
   - component: {fileID: 135053233426354378}
   - component: {fileID: 54437840298208192}
+  - component: {fileID: 114737823997625452}
   m_Layer: 0
   m_Name: KittyBall
   m_TagString: FatAnimal
@@ -186,7 +187,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1241625004194742}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.025072, y: 4.5, z: -5.957344}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children:
   - {fileID: 4738926369684952}
@@ -344,6 +345,20 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114737823997625452
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1241625004194742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e67f453561e23240b35ec7546fedb27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 1
+  cat: 1
+  dog: -1
 --- !u!135 &135053233426354378
 SphereCollider:
   m_ObjectHideFlags: 1
