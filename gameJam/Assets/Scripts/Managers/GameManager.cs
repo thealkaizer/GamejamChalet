@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour {
     public Transform[] spawnPoints;
     public float spawnSpeedMin = 5f;
     public float spawnSpeedMax = 0.1f;
+    public float spawnAccelerationSpeed = 0.2f;
 
     public GameObject catPrefab;
     public GameObject dogPrefab;
@@ -163,13 +164,15 @@ public class GameManager : MonoBehaviour {
         yield return new WaitForSeconds(interval);
         this.instanciateRandomAnimal();
         float newinterval = this.calculateNextSpawningTime(interval);
+        Debug.Log("DEBUG: " + newinterval);
         StartCoroutine(spawnOneAnimal(newinterval));
     }
 
     private float calculateNextSpawningTime(float currentSpeed) {
         //TODO At the moment, do nothing.
-        currentSpeed -= 0.5f;
-        return Mathf.Clamp(currentSpeed, this.spawnSpeedMin, this.spawnSpeedMax);
+        currentSpeed -= spawnAccelerationSpeed;
+        currentSpeed = (currentSpeed <= this.spawnSpeedMax) ? this.spawnSpeedMax : currentSpeed;
+        return currentSpeed;
     }
 
     private void instanciateRandomAnimal() {
