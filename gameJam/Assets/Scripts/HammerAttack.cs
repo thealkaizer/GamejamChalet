@@ -40,6 +40,7 @@ public class HammerAttack : MonoBehaviour {
     public float hammerForceVertical    = 100f;
     public float hammerForceHorizontal  = 100f;
     public float reducFactor            = 2f;
+    bool hitAnimal                      = false;
 
 
     // ------------------------------------------------------------------------
@@ -69,6 +70,7 @@ public class HammerAttack : MonoBehaviour {
 
     /** Process a simple poke attack */
     private void pokeAttack() {
+        AkSoundEngine.PostEvent("Play_Push_Animals", gameObject);
         if(!this.pokeIsReady) {
             // Not available yet
             // TODO Play a sound or something (UI warning..)?
@@ -98,16 +100,22 @@ public class HammerAttack : MonoBehaviour {
 
         //Feedback
         Camera.main.DOShakePosition(0.4f, 0.2f, 10, 80, true);
-        AkSoundEngine.PostEvent("Play_Hit_Ground", gameObject);
         GameObject dustInstance = Instantiate(dust, new Vector3(hammerHitPoint.gameObject.transform.position.x, hammerHitPoint.gameObject.transform.position.y +0.4f, hammerHitPoint.gameObject.transform.position.z), Quaternion.Euler(90f, 0f, 0f));
         Destroy(dustInstance, 3f);
 
         this.hammerCurrentTimer = 0;
         this.hammerIsReady = false;
         Collider[] hitColliders = Physics.OverlapSphere(hammerHitPoint.gameObject.transform.position, hammerPushArea.radius);
+        hitAnimal = false;
         for(int i = 0;i < hitColliders.Length;i++) {
             Collider currentCollider = hitColliders[i];
             if(currentCollider.gameObject.CompareTag("FatAnimal")) {
+                hitAnimal = true;
+                if (currentCollider.gameObject.GetComponent<AnimalControl>().id == 1) {
+                    AkSoundEngine.PostEvent("SFX_Hit_Cat", gameObject);
+                } else {
+                    AkSoundEngine.PostEvent("SFX_Hit_Dog", gameObject);
+                }
                 Rigidbody rb = currentCollider.gameObject.GetComponent<Rigidbody>();
                 Vector3 directionVector = currentCollider.transform.position - hammerHitPoint.gameObject.transform.position;
                 float distance = Vector3.Distance(currentCollider.transform.position, hammerHitPoint.gameObject.transform.position);
@@ -126,6 +134,13 @@ public class HammerAttack : MonoBehaviour {
                 }
             }
         }
+            if (hitAnimal == true) {
+                Debug.Log("ANIMAL");
+                AkSoundEngine.PostEvent("Play_Hit_Animals", gameObject);
+            } else {
+                Debug.Log("GROUND");
+                AkSoundEngine.PostEvent("Play_Hit_Ground", gameObject);
+            }
     }
 
     private void updateAllColdowns() {

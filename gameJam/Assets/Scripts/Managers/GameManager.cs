@@ -81,12 +81,15 @@ public class GameManager : MonoBehaviour {
         this.nbAnimals++;
         this.nbCats++;
         this.ui_catCounter.text = "Cats: " + nbCats;
+        AkSoundEngine.PostEvent("Play_Hole_Animals", gameObject);
+        
     }
 
     public void addOneDog() {
         this.nbAnimals++;
         this.nbDogs++;
         this.ui_dogCounter.text = "Dogs: " + nbDogs;
+        AkSoundEngine.PostEvent("Play_Hole_Animals", gameObject);
     }
 
     /**
@@ -175,6 +178,11 @@ public class GameManager : MonoBehaviour {
         int i = Random.Range(0, 2);
         GameObject prefab = (i == 0) ? catPrefab : dogPrefab;
         Instantiate(prefab, spawnPoints[pos].position, spawnPoints[pos].rotation);
+        if (i == 0) {
+            AkSoundEngine.PostEvent("Play_Falling_Cat", gameObject);
+        } else {
+            AkSoundEngine.PostEvent("Play_Falling_Dog", gameObject);
+        }
     }
 
 
