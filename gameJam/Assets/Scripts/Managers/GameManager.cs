@@ -82,12 +82,15 @@ public class GameManager : MonoBehaviour {
         this.nbAnimals++;
         this.nbCats++;
         this.ui_catCounter.text = "Cats: " + nbCats;
+        AkSoundEngine.PostEvent("Play_Hole_Animals", gameObject);
+        
     }
 
     public void addOneDog() {
         this.nbAnimals++;
         this.nbDogs++;
         this.ui_dogCounter.text = "Dogs: " + nbDogs;
+        AkSoundEngine.PostEvent("Play_Hole_Animals", gameObject);
     }
 
     /**
@@ -161,7 +164,6 @@ public class GameManager : MonoBehaviour {
         yield return new WaitForSeconds(interval);
         this.instanciateRandomAnimal();
         float newinterval = this.calculateNextSpawningTime(interval);
-        Debug.Log("DEBUG: " + newinterval);
         StartCoroutine(spawnOneAnimal(newinterval));
     }
 
@@ -178,6 +180,11 @@ public class GameManager : MonoBehaviour {
         int i = Random.Range(0, 2);
         GameObject prefab = (i == 0) ? catPrefab : dogPrefab;
         Instantiate(prefab, spawnPoints[pos].position, spawnPoints[pos].rotation);
+        if (i == 0) {
+            AkSoundEngine.PostEvent("Play_Falling_Cat", gameObject);
+        } else {
+            AkSoundEngine.PostEvent("Play_Falling_Dog", gameObject);
+        }
     }
 
 
@@ -185,7 +192,8 @@ public class GameManager : MonoBehaviour {
     // Hole
     // ------------------------------------------------------------------------
     private void startOpeningHoles() {
-        StartCoroutine(openOneHole(calculateNextHoleTime()));
+        openRandomHole();
+        StartCoroutine(openOneHole(this.maxOpenFrequency));
     }
 
     public IEnumerator openOneHole(float interval) {
@@ -198,7 +206,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private float calculateNextHoleTime() {
-        return Random.Range(this.minOpenFrequency, this.maxOpenFrequency);
+        return Random.Range(this.maxOpenFrequency, this.minOpenFrequency);
     }
 
     private void openRandomHole() {
