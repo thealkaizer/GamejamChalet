@@ -13,6 +13,9 @@ public class HammerAttack : MonoBehaviour {
     //UI
     public Image radialCooldown;
 
+    //Feedback
+    public GameObject dust;
+
     //InputControls
     internal Player CharacterPlayer;
 	private bool pokeInput, hammerInput;
@@ -96,6 +99,8 @@ public class HammerAttack : MonoBehaviour {
         //Feedback
         Camera.main.DOShakePosition(0.4f, 0.2f, 10, 80, true);
         AkSoundEngine.PostEvent("Play_Hit_Ground", gameObject);
+        GameObject dustInstance = Instantiate(dust, new Vector3(hammerHitPoint.gameObject.transform.position.x, hammerHitPoint.gameObject.transform.position.y +0.4f, hammerHitPoint.gameObject.transform.position.z), Quaternion.Euler(90f, 0f, 0f));
+        Destroy(dustInstance, 3f);
 
         this.hammerCurrentTimer = 0;
         this.hammerIsReady = false;

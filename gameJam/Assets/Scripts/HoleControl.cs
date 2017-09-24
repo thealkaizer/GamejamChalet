@@ -6,6 +6,8 @@ public class HoleControl : MonoBehaviour {
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
+    public GameManager gameManager;
+
     public float animalSinkingTime = 2f;
 
     public float    openingSpeed;
@@ -27,34 +29,50 @@ public class HoleControl : MonoBehaviour {
     // ------------------------------------------------------------------------
 
     private void Start() {
+        this.holeCollider = this.GetComponent<Collider>();
         this.holeCollider.enabled = false;
     }
 
     // Update is called once per frame
     void Update () {
-        if(!isOpen) {   
+        if(!isOpen) {
             this.currentOpeningTimer = 0;
             this.holeCollider.enabled = false;
             return;
         }
         this.currentOpeningTimer += Time.deltaTime;
-        if(this.currentOpeningTimer <= this.openDuration) {
+        if(this.currentOpeningTimer <= this.openingSpeed) {
+            // Here, hole is opening
             this.isOpening = true;
-            // Scale to open
+            // TODO Scale to open
         }
-        else if(this.currentOpeningTimer <= this.closingSpeed) {
+        else if(this.currentOpeningTimer <= (this.openingSpeed + this.closingSpeed)) {
+            // Here, hole is full open
             this.isOpening = false;
         }
-        else {
+        else if(this.currentOpeningTimer <= (this.openingSpeed + this.closingSpeed + this.closingSpeed)){
+            // Now, hole is closing
             this.isClosing = true;
-            // Scale to close
+            // TODO Scale to close
+        }
+        else {
+            // Here, means hole must close now
+            this.isOpen = false;
+            this.isClosing = false;
+            this.isOpening = false;
         }
     }
 
     void OnTriggerEnter(Collider collider) {
         if(collider.gameObject.transform.CompareTag("FatAnimal")) {
             collider.enabled = false;
-            // TODO changé nombre de chien/chat
+            AnimalControl animal = collider.gameObject.GetComponent<AnimalControl>();
+            if(animal.id == animal.cat) {
+                gameManager.addOneCat();
+            }
+            else {
+                this.gameManager.addOneDog();
+            }
             Destroy(collider.gameObject, animalSinkingTime);
         };
     }
