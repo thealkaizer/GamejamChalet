@@ -1,11 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Rewired;
+using DG.Tweening;
 
 public class HammerAttack : MonoBehaviour {
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
+
+    //InputControls
+    internal Player CharacterPlayer;
+	private bool pokeInput, hammerInput;
+
+    //SphereColliders
     public SphereCollider pokeHitPoint;
     public SphereCollider hammerHitPoint;
     public SphereCollider hammerCrushArea;
@@ -31,15 +39,23 @@ public class HammerAttack : MonoBehaviour {
     // Functions
     // ------------------------------------------------------------------------
 
+    void Start() {
+        CharacterPlayer = ReInput.players.GetPlayer(0);
+    }
+
 	// Update is called once per frame
 	void Update () {
         this.updateAllColdowns();
+        pokeInput = CharacterPlayer.GetButtonDown("Poke");
+		hammerInput = CharacterPlayer.GetButtonDown("Hammer");
 
         // Handle inputs
-        if(Input.GetKeyDown(KeyCode.E)) {
+        if(pokeInput) {
+            Debug.Log("POKE");
             this.pokeAttack();
         }
-        else if(Input.GetKeyDown(KeyCode.T)) {
+        else if(hammerInput) {
+            Debug.Log("Hammer");
             this.bigHammerAttack();
         }
     }
@@ -72,6 +88,10 @@ public class HammerAttack : MonoBehaviour {
             // TODO Play a sound or something (UI warning..)?
             return;
         }
+
+        //Feedback
+        Camera.main.DOShakePosition(0.4f, 0.2f, 10, 80, true);
+
         this.hammerCurrentTimer = 0;
         this.hammerIsReady = false;
         Collider[] hitColliders = Physics.OverlapSphere(hammerHitPoint.gameObject.transform.position, hammerPushArea.radius);
