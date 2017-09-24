@@ -125,7 +125,6 @@ public class GameManager : MonoBehaviour {
      */
     private void calculateNewBalance() {
         float balanceGap = nbCats - nbDogs;
-
         float expectedNewBalance = balanceGap * 10;
         expectedNewBalance = Mathf.Clamp(expectedNewBalance, -90, 90);
         this.currentBallanceLevel = Mathf.Lerp(currentBallanceLevel, expectedNewBalance, balanceSensibility * Time.deltaTime);
@@ -141,16 +140,14 @@ public class GameManager : MonoBehaviour {
     // Spawning
     // ------------------------------------------------------------------------
     public void startSpawning() {
-        startSpawning(this.spawnSpeedCurrent);
+        StartCoroutine(spawnOneAnimal(this.spawnSpeedCurrent));
     }
 
-    public IEnumerator startSpawning(float interval) {
+    public IEnumerator spawnOneAnimal(float interval) {
         yield return new WaitForSeconds(interval);
-        //GameObject o = Instantiate()
-        int i = Random.Range(0, this.spawnPoints.Length);
         this.instanciateRandomAnimal();
         this.calculateNewSpawningTime();
-        StartCoroutine(startSpawning(this.spawnSpeedCurrent));
+        StartCoroutine(spawnOneAnimal(this.spawnSpeedCurrent));
     }
 
     private void calculateNewSpawningTime() {
@@ -161,12 +158,9 @@ public class GameManager : MonoBehaviour {
 
     private void instanciateRandomAnimal() {
         //TODO At the moment, simple random
+        int pos = Random.Range(0, this.spawnPoints.Length);
         int i = Random.Range(0, 1);
-        if(i == 0) {
-            GameObject o = Instantiate(catPrefab, spawnPoints[i].position, spawnPoints[i].rotation);
-        }
-        else {
-            GameObject o = Instantiate(dogPrefab, spawnPoints[i].position, spawnPoints[i].rotation);
-        }
+        GameObject prefab = (i == 0) ? catPrefab : dogPrefab;
+        GameObject o = Instantiate(prefab, spawnPoints[pos].position, spawnPoints[pos].rotation);
     }
 }
