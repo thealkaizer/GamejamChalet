@@ -10915,8 +10915,9 @@ MonoBehaviour:
   - {fileID: 4140426538421670}
   - {fileID: 4925034090797406}
   - {fileID: 4698376867673894}
-  spawnSpeedMin: 3
+  spawnSpeedMin: 5
   spawnSpeedMax: 0.5
+  spawnAccelerationSpeed: 0.3
   catPrefab: {fileID: 1241625004194742, guid: 1ef2190536c7b1f43825fd09a38897d7, type: 2}
   dogPrefab: {fileID: 1838268213898928, guid: 7f572e9a6b7f5554f81139e08028d1aa, type: 2}
   listHoles:
