@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class HammerAttack : MonoBehaviour {
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
+
+    //UI
+    public Image radialCooldown;
 
     //InputControls
     internal Player CharacterPlayer;
@@ -128,8 +132,14 @@ public class HammerAttack : MonoBehaviour {
 
         // Hammer coldown
         this.hammerCurrentTimer += Time.deltaTime;
+        radialCooldown.fillAmount = (this.hammerCurrentTimer / hammerColdown);
         if(this.hammerCurrentTimer >= this.hammerColdown) {
+            if (this.hammerIsReady == false) {
+                radialCooldown.fillAmount = 1f;
+                radialCooldown.transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f),  0.35f, 3, 0f);
+            }
             this.hammerIsReady = true;
         }
+        
     }
 }
