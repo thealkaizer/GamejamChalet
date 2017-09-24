@@ -210,7 +210,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void openRandomHole() {
-        int pos = Random.Range(0, listHoles.Length -1);
+        int pos = Random.Range(0, listHoles.Length);
         GameObject o = listHoles[pos];
         HoleControl holeControl = o.GetComponent<HoleControl>();
         holeControl.openHole();

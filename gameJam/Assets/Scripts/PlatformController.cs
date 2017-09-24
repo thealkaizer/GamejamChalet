@@ -18,10 +18,11 @@ public class PlatformController : MonoBehaviour {
         float v_expected = PlatformPlayer.GetAxis("Vertical Tilt") * maxAngle;
         float h_expected = PlatformPlayer.GetAxis("Horizontal Tilt") * maxAngle;
         handleTileRotation(v_expected, h_expected);
+        
     }
  
     private void handleTileRotation(float vertical, float horizontal) {
-        Quaternion expectedPosition = Quaternion.Euler(vertical, 0, -horizontal);
+        Quaternion expectedPosition = Quaternion.Euler(vertical + 0.5f, 0, -horizontal + 0.5f);
         this.transform.rotation = Quaternion.Lerp(this.transform.rotation, expectedPosition, moveSpeed * Time.deltaTime);
     }
 }
