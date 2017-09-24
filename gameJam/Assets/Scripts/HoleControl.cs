@@ -90,6 +90,8 @@ public class HoleControl : MonoBehaviour {
             this.openDuration = Random.Range(minOpenDuration, maxOpenDuration);
             this.holeCollider.enabled = true;
             black.transform.localPosition = new Vector3(0,0,0.04f);
+            Debug.Log("Open");
+
             return true;
         }
         return false; // Meaning it is already open
