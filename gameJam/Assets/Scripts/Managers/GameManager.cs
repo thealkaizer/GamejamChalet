@@ -46,27 +46,30 @@ public class GameManager : MonoBehaviour {
     public GameObject dogPrefab;
 
 
+    // Hole management variables
+    public GameObject[] listHoles;
+    public GameObject holePrefab;
+    
+    public float minOpenFrequency;
+    public float maxOpenFrequency;
+    public int maxOpenedHolesConcurrently = 1;
+
+    private int openedHoleCounter = 0;
+
+
+
     // ------------------------------------------------------------------------
     // Functions
     // ------------------------------------------------------------------------
     public void Start() {
         this.spawnSpeedCurrent = this.spawnSpeedMin;
-        this.startSpawning(); //TMP (Must be removed later)
+        // TMP (Probably to be moved later)
+        this.startSpawning();
+        this.startOpeningHoles();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        // WARNING TEMPORARY DEBUG
-        if(Input.GetKeyDown(KeyCode.I)) {
-            this.nbDogs++;
-            this.nbAnimals++;
-        }
-        else if(Input.GetKeyDown(KeyCode.O)) {
-            this.nbCats++;
-            this.nbAnimals++;
-            spawnSpeedCurrent -= 0.1f;
-        }
-        
         this.updateBalance();
         this.calculateNewBalance();
         this.processBalanceActions();
@@ -131,6 +134,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void processBalanceActions() {
+        // Update UI
         Quaternion newPosition = Quaternion.Euler(0, 0, this.currentBallanceLevel);
         this.ui_balancePivot.transform.rotation = newPosition;
     }
@@ -143,14 +147,14 @@ public class GameManager : MonoBehaviour {
         StartCoroutine(spawnOneAnimal(this.spawnSpeedCurrent));
     }
 
-    public IEnumerator spawnOneAnimal(float interval) {
+    private IEnumerator spawnOneAnimal(float interval) {
         yield return new WaitForSeconds(interval);
         this.instanciateRandomAnimal();
-        this.calculateNewSpawningTime();
+        this.calculateNextSpawningTime();
         StartCoroutine(spawnOneAnimal(this.spawnSpeedCurrent));
     }
 
-    private void calculateNewSpawningTime() {
+    private void calculateNextSpawningTime() {
         //TODO At the moment, do nothing.
         this.spawnSpeedCurrent -= 0.5f;
         this.spawnSpeedCurrent =  Mathf.Clamp(this.spawnSpeedCurrent, this.spawnSpeedMin, this.spawnSpeedMax);
@@ -159,8 +163,37 @@ public class GameManager : MonoBehaviour {
     private void instanciateRandomAnimal() {
         //TODO At the moment, simple random
         int pos = Random.Range(0, this.spawnPoints.Length);
-        int i = Random.Range(0, 1);
+        int i = Random.Range(0, 2);
         GameObject prefab = (i == 0) ? catPrefab : dogPrefab;
-        GameObject o = Instantiate(prefab, spawnPoints[pos].position, spawnPoints[pos].rotation);
+        Instantiate(prefab, spawnPoints[pos].position, spawnPoints[pos].rotation);
+    }
+
+
+    // ------------------------------------------------------------------------
+    // Hole
+    // ------------------------------------------------------------------------
+    private void startOpeningHoles() {
+        StartCoroutine(openOneHole(calculateNextHoleTime()));
+    }
+
+    public IEnumerator openOneHole(float interval) {
+        yield return new WaitForSeconds(interval);
+        if(this.openedHoleCounter < this.maxOpenedHolesConcurrently) {
+            Debug.Log("TO MANY");
+            this.openRandomHole();
+        }
+        interval = calculateNextHoleTime();
+        StartCoroutine(openOneHole(interval));
+    }
+
+    private float calculateNextHoleTime() {
+        return Random.Range(this.minOpenFrequency, this.maxOpenFrequency);
+    }
+
+    private void openRandomHole() {
+        int pos = Random.Range(0, listHoles.Length);
+        GameObject o = listHoles[pos];
+        HoleControl holeControl = o.GetComponent<HoleControl>();
+        holeControl.openHole();
     }
 }

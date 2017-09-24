@@ -114,8 +114,8 @@ MonoBehaviour:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{3E71B8A1-854F-47C0-A23C-7499B5C53D9D}'
-    m_lastTimePsrt1: -1798068992
-    m_lastTimePart2: -1999305997
+    m_lastTimePsrt1: -703204555
+    m_lastTimePart2: -1999305994
     List:
     - Name: Main
       Path: Default Work Unit\Main
