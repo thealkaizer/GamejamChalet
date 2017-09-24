@@ -10,6 +10,6 @@ public class AnimalControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		GetComponent<Rigidbody>().AddForce(Vector3.down * 9.81f, ForceMode.Acceleration);
 	}
 }

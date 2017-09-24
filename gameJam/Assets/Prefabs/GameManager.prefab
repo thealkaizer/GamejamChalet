@@ -10550,10 +10550,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui_balancePivot: {fileID: 0}
-  thresholdSuccess: 20
-  thresholdWarning: 40
-  thresholdDanger: 80
-  thresholdLoose: 95
+  ui_dogCounter: {fileID: 0}
+  ui_catCounter: {fileID: 0}
   balanceSensibility: 1
   spawnPoints:
   - {fileID: 4036891134440712}
@@ -10917,8 +10915,13 @@ MonoBehaviour:
   - {fileID: 4140426538421670}
   - {fileID: 4925034090797406}
   - {fileID: 4698376867673894}
-  spawnSpeedMin: 3
-  spawnSpeedMax: 5
-  spawnSpeedCurrent: 5
+  spawnSpeedMin: 5
+  spawnSpeedMax: 0.5
+  spawnAccelerationSpeed: 0.3
   catPrefab: {fileID: 1241625004194742, guid: 1ef2190536c7b1f43825fd09a38897d7, type: 2}
   dogPrefab: {fileID: 1838268213898928, guid: 7f572e9a6b7f5554f81139e08028d1aa, type: 2}
+  listHoles:
+  - {fileID: 0}
+  minOpenFrequency: 15
+  maxOpenFrequency: 15
+  maxOpenedHolesConcurrently: 2
