@@ -161,7 +161,6 @@ public class GameManager : MonoBehaviour {
         yield return new WaitForSeconds(interval);
         this.instanciateRandomAnimal();
         float newinterval = this.calculateNextSpawningTime(interval);
-        Debug.Log("DEBUG: " + newinterval);
         StartCoroutine(spawnOneAnimal(newinterval));
     }
 
@@ -185,7 +184,8 @@ public class GameManager : MonoBehaviour {
     // Hole
     // ------------------------------------------------------------------------
     private void startOpeningHoles() {
-        StartCoroutine(openOneHole(calculateNextHoleTime()));
+        openRandomHole();
+        StartCoroutine(openOneHole(this.maxOpenFrequency));
     }
 
     public IEnumerator openOneHole(float interval) {
@@ -198,7 +198,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private float calculateNextHoleTime() {
-        return Random.Range(this.minOpenFrequency, this.maxOpenFrequency);
+        return Random.Range(this.maxOpenFrequency, this.minOpenFrequency);
     }
 
     private void openRandomHole() {

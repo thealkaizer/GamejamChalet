@@ -31,6 +31,7 @@ public class HoleControl : MonoBehaviour {
     // ------------------------------------------------------------------------
 
     private void Start() {
+        this.currentOpeningTimer = 0;
         this.holeCollider = this.GetComponent<Collider>();
         this.holeCollider.enabled = false;
     }
@@ -59,10 +60,11 @@ public class HoleControl : MonoBehaviour {
         }
         else {
             // Here, means hole must close now
-            black.transform.position = new Vector3(0,0,-0.04f);
+            black.transform.localPosition = new Vector3(0,0,-0.04f);
             this.isOpen = false;
             this.isClosing = false;
             this.isOpening = false;
+            this.holeCollider.enabled = false;
         }
     }
 
@@ -87,7 +89,7 @@ public class HoleControl : MonoBehaviour {
             this.isClosing = false;
             this.openDuration = Random.Range(minOpenDuration, maxOpenDuration);
             this.holeCollider.enabled = true;
-            black.transform.position = new Vector3(0,0,0.04f);
+            black.transform.localPosition = new Vector3(0,0,0.04f);
             return true;
         }
         return false; // Meaning it is already open
