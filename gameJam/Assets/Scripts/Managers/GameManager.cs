@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
     // ------------------------------------------------------------------------
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour {
 
     // Balance variables
     public GameObject ui_balancePivot;
+    public Text ui_dogCounter;
+    public Text ui_catCounter;
 
     private int nbAnimals = 0;
     private int nbCats = 0;
@@ -24,11 +27,6 @@ public class GameManager : MonoBehaviour {
 
     private float percentNbCats = 0;
     private float percentNbDogs = 0;
-    
-    public float thresholdSuccess = 20; // % away from total ballance that is still ok
-    public float thresholdWarning = 40;
-    public float thresholdDanger = 80;
-    public float thresholdLoose = 95;
 
     public float balanceSensibility = 1;
     private float currentBallanceLevel = 0;
@@ -40,7 +38,6 @@ public class GameManager : MonoBehaviour {
     public Transform[] spawnPoints;
     public float spawnSpeedMin = 5f;
     public float spawnSpeedMax = 0.1f;
-    public float spawnSpeedCurrent;
 
     public GameObject catPrefab;
     public GameObject dogPrefab;
@@ -48,12 +45,7 @@ public class GameManager : MonoBehaviour {
 
     // Hole management variables
     public GameObject[] listHoles;
-    public GameObject holePrefab;
-
-    public float openingSpeed;
-    public float closingSpeed;
-    public int minOpenTime;
-    public int maxOpenTime;
+    
     public float minOpenFrequency;
     public float maxOpenFrequency;
     public int maxOpenedHolesConcurrently = 1;
@@ -65,11 +57,12 @@ public class GameManager : MonoBehaviour {
     // ------------------------------------------------------------------------
     // Functions
     // ------------------------------------------------------------------------
-    public void Start() {
-        this.spawnSpeedCurrent = this.spawnSpeedMin;
+    void Start() {
         // TMP (Probably to be moved later)
         this.startSpawning();
         this.startOpeningHoles();
+        this.ui_catCounter.text = "Cats: 0";
+        this.ui_dogCounter.text = "Dogs: 0";
     }
 	
 	// Update is called once per frame
@@ -83,6 +76,18 @@ public class GameManager : MonoBehaviour {
     // ------------------------------------------------------------------------
     // Balance manager
     // ------------------------------------------------------------------------
+
+    public void addOneCat() {
+        this.nbAnimals++;
+        this.nbCats++;
+        this.ui_catCounter.text = "Cats: " + nbCats;
+    }
+
+    public void addOneDog() {
+        this.nbAnimals++;
+        this.nbDogs++;
+        this.ui_dogCounter.text = "Dogs: " + nbDogs;
+    }
 
     /**
      * Update data and the balance value
@@ -113,15 +118,15 @@ public class GameManager : MonoBehaviour {
         if(oldTrence != currentAnimalTrence) {
             if(currentAnimalTrence == 0) {
                 // Perfect balance
-                // TODO
+                // TODO Play sound or visual effect ?
             }
             else if (currentAnimalTrence == -1) {
                 // Dog side
-                // TODO
+                // TODO Play sound or visual effect ?
             }
             else {
                 // Cat side
-                // TODO
+                // TODO Play sound or visual effect ?
             }
         }
     }
@@ -138,6 +143,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void processBalanceActions() {
+        // Update UI
         Quaternion newPosition = Quaternion.Euler(0, 0, this.currentBallanceLevel);
         this.ui_balancePivot.transform.rotation = newPosition;
     }
@@ -147,20 +153,20 @@ public class GameManager : MonoBehaviour {
     // Spawning
     // ------------------------------------------------------------------------
     public void startSpawning() {
-        StartCoroutine(spawnOneAnimal(this.spawnSpeedCurrent));
+        StartCoroutine(spawnOneAnimal(this.spawnSpeedMin));
     }
 
     private IEnumerator spawnOneAnimal(float interval) {
         yield return new WaitForSeconds(interval);
         this.instanciateRandomAnimal();
-        this.calculateNextSpawningTime();
-        StartCoroutine(spawnOneAnimal(this.spawnSpeedCurrent));
+        float newinterval = this.calculateNextSpawningTime(interval);
+        StartCoroutine(spawnOneAnimal(newinterval));
     }
 
-    private void calculateNextSpawningTime() {
+    private float calculateNextSpawningTime(float currentSpeed) {
         //TODO At the moment, do nothing.
-        this.spawnSpeedCurrent -= 0.5f;
-        this.spawnSpeedCurrent =  Mathf.Clamp(this.spawnSpeedCurrent, this.spawnSpeedMin, this.spawnSpeedMax);
+        currentSpeed -= 0.5f;
+        return Mathf.Clamp(currentSpeed, this.spawnSpeedMin, this.spawnSpeedMax);
     }
 
     private void instanciateRandomAnimal() {
@@ -181,7 +187,7 @@ public class GameManager : MonoBehaviour {
 
     public IEnumerator openOneHole(float interval) {
         yield return new WaitForSeconds(interval);
-        if(this.openedHoleCounter < this.maxOpenTime) {
+        if(this.openedHoleCounter < this.maxOpenedHolesConcurrently) {
             this.openRandomHole();
         }
         interval = calculateNextHoleTime();
@@ -193,10 +199,9 @@ public class GameManager : MonoBehaviour {
     }
 
     private void openRandomHole() {
-        int pos = Random.Range(0, listHoles.Length);
-        int duration = Random.Range(minOpenTime, maxOpenTime);
+        int pos = Random.Range(0, listHoles.Length -1);
         GameObject o = listHoles[pos];
         HoleControl holeControl = o.GetComponent<HoleControl>();
-        holeControl.openHole(duration);
+        holeControl.openHole();
     }
 }
