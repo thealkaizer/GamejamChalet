@@ -3,38 +3,71 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HoleControl : MonoBehaviour {
-    public float sinkingTime = 2f;
+    // ------------------------------------------------------------------------
+    // Variables
+    // ------------------------------------------------------------------------
+    public float animalSinkingTime = 2f;
 
-    private bool isOpening;
-    private bool isClosing;
-    private bool isOpen;
-    private float openingDuration;
+    public float    openingSpeed;
+    public float    closingSpeed;
+    public int      minOpenDuration;
+    public int      maxOpenDuration;
 
-	// Use this for initialization
-	void Start () {
-        this.isOpen = false;
-        this.isClosing = false;
-        this.isOpening = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
+    public bool     isOpen = false;
+    private bool    isOpening = false;
+    private bool    isClosing = false;
+    private float   openDuration;
 
-	void OnTriggerEnter(Collider collider) {
-		if (collider.gameObject.transform.CompareTag("FatAnimal")) {
+    private float   currentOpeningTimer; // Internally used
+    private Collider holeCollider;
+
+
+    // ------------------------------------------------------------------------
+    // Methods
+    // ------------------------------------------------------------------------
+
+    private void Start() {
+        this.holeCollider.enabled = false;
+    }
+
+    // Update is called once per frame
+    void Update () {
+        if(!isOpen) {   
+            this.currentOpeningTimer = 0;
+            this.holeCollider.enabled = false;
+            return;
+        }
+        this.currentOpeningTimer += Time.deltaTime;
+        if(this.currentOpeningTimer <= this.openDuration) {
+            this.isOpening = true;
+            // Scale to open
+        }
+        else if(this.currentOpeningTimer <= this.closingSpeed) {
+            this.isOpening = false;
+        }
+        else {
+            this.isClosing = true;
+            // Scale to close
+        }
+    }
+
+    void OnTriggerEnter(Collider collider) {
+        if(collider.gameObject.transform.CompareTag("FatAnimal")) {
             collider.enabled = false;
-			// TODO changé nombre de chien/chat
-			Destroy(collider.gameObject, sinkingTime);
-		};
-	}
+            // TODO changé nombre de chien/chat
+            Destroy(collider.gameObject, animalSinkingTime);
+        };
+    }
 
-    public bool openHole(float duration) {
+    public bool openHole() {
         if(!this.isOpen) {
             this.isOpen = true;
-            this.openingDuration = duration;
+            this.isOpening = true;
+            this.isClosing = false;
+            this.openDuration = Random.Range(minOpenDuration, maxOpenDuration);
+            this.holeCollider.enabled = true;
             return true;
         }
-        return false;
+        return false; // Meaning it is already open
     }
 }

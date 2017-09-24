@@ -49,11 +49,7 @@ public class GameManager : MonoBehaviour {
     // Hole management variables
     public GameObject[] listHoles;
     public GameObject holePrefab;
-
-    public float openingSpeed;
-    public float closingSpeed;
-    public int minOpenTime;
-    public int maxOpenTime;
+    
     public float minOpenFrequency;
     public float maxOpenFrequency;
     public int maxOpenedHolesConcurrently = 1;
@@ -138,6 +134,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void processBalanceActions() {
+        // Update UI
         Quaternion newPosition = Quaternion.Euler(0, 0, this.currentBallanceLevel);
         this.ui_balancePivot.transform.rotation = newPosition;
     }
@@ -181,7 +178,8 @@ public class GameManager : MonoBehaviour {
 
     public IEnumerator openOneHole(float interval) {
         yield return new WaitForSeconds(interval);
-        if(this.openedHoleCounter < this.maxOpenTime) {
+        if(this.openedHoleCounter < this.maxOpenedHolesConcurrently) {
+            Debug.Log("TO MANY");
             this.openRandomHole();
         }
         interval = calculateNextHoleTime();
@@ -194,9 +192,8 @@ public class GameManager : MonoBehaviour {
 
     private void openRandomHole() {
         int pos = Random.Range(0, listHoles.Length);
-        int duration = Random.Range(minOpenTime, maxOpenTime);
         GameObject o = listHoles[pos];
         HoleControl holeControl = o.GetComponent<HoleControl>();
-        holeControl.openHole(duration);
+        holeControl.openHole();
     }
 }
