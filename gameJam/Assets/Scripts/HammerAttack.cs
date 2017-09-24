@@ -91,6 +91,7 @@ public class HammerAttack : MonoBehaviour {
 
         //Feedback
         Camera.main.DOShakePosition(0.4f, 0.2f, 10, 80, true);
+        AkSoundEngine.PostEvent("Play_Hit_Ground", gameObject);
 
         this.hammerCurrentTimer = 0;
         this.hammerIsReady = false;
