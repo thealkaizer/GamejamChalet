@@ -7,9 +7,10 @@ public class AnimalControl : MonoBehaviour {
     public int id; // -1 for dog, 1 for cat
     public int cat = 1;
     public int dog = -1;
-	
+
 	// Update is called once per frame
 	void Update () {
-		GetComponent<Rigidbody>().AddForce(Vector3.down * 9.81f, ForceMode.Acceleration);
+		//GetComponent<Rigidbody>().AddForce(Vector3.down * 9.81f, ForceMode.Acceleration);
+		Debug.Log(GetComponent<Rigidbody>().velocity);
 	}
 }

@@ -16,8 +16,8 @@ MonoBehaviour:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{425A5868-1261-41BA-BB3F-1FB70022DB76}'
-    m_lastTimePsrt1: 596832896
-    m_lastTimePart2: -1999305999
+    m_lastTimePsrt1: 455659264
+    m_lastTimePart2: -1999305882
     List:
     - Name: Play_Ambiances
       Path: Default Work Unit\Play_Ambiances
@@ -28,6 +28,36 @@ MonoBehaviour:
         ObjectType: 3
       ID: 1193561773
       Guid: d8eacff07fef224eb64c89cd804bddab
+      maxAttenuation: 0
+    - Name: Play_Falling_Cat
+      Path: Default Work Unit\Play_Falling_Cat
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Falling_Cat
+        ObjectType: 3
+      ID: -1692627450
+      Guid: 80a0372283f2ec4b9e55313f2272aab2
+      maxAttenuation: 0
+    - Name: Play_Falling_Dog
+      Path: Default Work Unit\Play_Falling_Dog
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Falling_Dog
+        ObjectType: 3
+      ID: -1659513420
+      Guid: dd6860273b238d4cb651a66d7a5bfb12
+      maxAttenuation: 0
+    - Name: Play_Footsteps
+      Path: Default Work Unit\Play_Footsteps
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Footsteps
+        ObjectType: 3
+      ID: -440811497
+      Guid: b615dfec7e316943ae8e6186a38a1914
       maxAttenuation: 0
     - Name: Play_Hit_Animals
       Path: Default Work Unit\Play_Hit_Animals
@@ -48,6 +78,46 @@ MonoBehaviour:
         ObjectType: 3
       ID: -578373839
       Guid: 7d902a89272d014eb936317f0d5ac242
+      maxAttenuation: 0
+    - Name: Play_Hole_animals
+      Path: Default Work Unit\Play_Hole_animals
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Hole_animals
+        ObjectType: 3
+      ID: -456916334
+      Guid: c3e8e4327d74854c994c7e4862725c85
+      maxAttenuation: 0
+    - Name: Play_Menu_bouton
+      Path: Default Work Unit\Play_Menu_bouton
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Menu_bouton
+        ObjectType: 3
+      ID: -620394625
+      Guid: 929659f7e11194428c551165619fade5
+      maxAttenuation: 0
+    - Name: Play_Musique_cats_dogs_01
+      Path: Default Work Unit\Play_Musique_cats_dogs_01
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Musique_cats_dogs_01
+        ObjectType: 3
+      ID: 2116220757
+      Guid: b1d4c8e47ba6bc48b959f137386e339b
+      maxAttenuation: 0
+    - Name: Play_Musique_menu_01
+      Path: Default Work Unit\Play_Musique_menu_01
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Musique_menu_01
+        ObjectType: 3
+      ID: 598420731
+      Guid: e8c59e7c92d67f4893f7a75e1964eafa
       maxAttenuation: 0
     - Name: Play_Push_Animals
       Path: Default Work Unit\Play_Push_Animals
@@ -107,15 +177,40 @@ MonoBehaviour:
   - PhysicalPath: Switches\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{53BE17F3-E9E2-477E-BD70-B338ABB196C8}'
-    m_lastTimePsrt1: -2129904128
-    m_lastTimePart2: -1999306206
-    List: []
+    m_lastTimePsrt1: -404406144
+    m_lastTimePart2: -1999305885
+    List:
+    - Name: Balance
+      Path: Default Work Unit\Balance
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Balance
+        ObjectType: 11
+      ID: 429005311
+      Guid: 226aa8367a9bdb4fae9f5fc359552eed
+      values:
+      - Green
+      - Orange
+      - Red
+      ValueIcons:
+      - ElementName: Green
+        ObjectType: 10
+      - ElementName: Orange
+        ObjectType: 10
+      - ElementName: Red
+        ObjectType: 10
+      valueIDs: b29732f727a13a5192d2723a
+      ValueGuids:
+      - bytes: 9472ff81940ac942b0510fd2b5b76cbf
+      - bytes: ff0567115a4e224897a1466d101cb32a
+      - bytes: e373d5afbb0a2446bcb5815bf39753d2
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     Guid: '{3E71B8A1-854F-47C0-A23C-7499B5C53D9D}'
-    m_lastTimePsrt1: -703204555
-    m_lastTimePart2: -1999305994
+    m_lastTimePsrt1: 1065659264
+    m_lastTimePart2: -1999305882
     List:
     - Name: Main
       Path: Default Work Unit\Main
