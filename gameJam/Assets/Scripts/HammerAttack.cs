@@ -10,40 +10,41 @@ public class HammerAttack : MonoBehaviour {
     // Variables
     // ------------------------------------------------------------------------
 
-    public Animator playerAnim;
-    PlayerController controllerScript;
+    public Animator         playerAnim;
+    PlayerController        controllerScript;
 
     //UI
-    public Image radialCooldown;
+    public Image            radialCooldown;
 
     //Feedback
-    public GameObject dust;
+    public GameObject       dust;
 
     //InputControls
-    internal Player CharacterPlayer;
-	private bool pokeInput, hammerInput;
+    internal Player         CharacterPlayer;
+    private bool            pokeInput;
+    private bool            hammerInput;
 
     //SphereColliders
-    public SphereCollider pokeHitPoint;
-    public SphereCollider hammerHitPoint;
-    public SphereCollider hammerCrushArea;
-    public SphereCollider hammerPushArea;
+    public SphereCollider   pokeHitPoint;
+    public SphereCollider   hammerHitPoint;
+    public SphereCollider   hammerCrushArea;
+    public SphereCollider   hammerPushArea;
 
-    // Pole attack
-    public float pokeColdown            = 1f; // Reload time in seconds
-    private float pokeCurrentTimer      = 0f;
-    private bool pokeIsReady            = true;
-    public float pokeForce              = 100f;
+    // Poke attack
+    public float            pokeColdown             = 1f; // Reload time in seconds
+    private float           pokeCurrentTimer        = 0f;
+    private bool            pokeIsReady             = true;
+    public float            pokeForce               = 100f;
 
     
     // Hammer attack
-    public float hammerColdown          = 4f; // Reload time in seconds
-    private float hammerCurrentTimer    = 0f;
-    private bool hammerIsReady          = true;
-    public float hammerForceVertical    = 100f;
-    public float hammerForceHorizontal  = 100f;
-    public float reducFactor            = 2f;
-    bool hitAnimal                      = false;
+    public float            hammerColdown           = 4f; // Reload time in seconds
+    private float           hammerCurrentTimer      = 0f;
+    private bool            hammerIsReady           = true;
+    public float            hammerForceVertical     = 100f;
+    public float            hammerForceHorizontal   = 100f;
+    public float            hammerReducFactor       = 2f;
+    private bool            hitAnimal               = false;
 
 
     // ------------------------------------------------------------------------
@@ -72,17 +73,15 @@ public class HammerAttack : MonoBehaviour {
 
     /** Process a simple poke attack */
     private void pokeAttack() {
+        if(!this.pokeIsReady) {
+            // Not available yet
+            return;
+        }
         playerAnim.SetInteger("AnimInt", 2);
         Invoke("ResetAnim", 0.4f);
         AkSoundEngine.PostEvent("Play_Push_Animals", gameObject);
-        if(!this.pokeIsReady) {
-            // Not available yet
-            // TODO Play a sound or something (UI warning..)?
-            return;
-        }
         this.pokeCurrentTimer = 0;
         this.pokeIsReady = false;
-        //Debug.Log(overlap.center);
         Collider[] hitColliders = Physics.OverlapSphere(pokeHitPoint.gameObject.transform.position, pokeHitPoint.radius);
         for(int i = 0; i < hitColliders.Length; i++) {
             if(hitColliders[i].gameObject.CompareTag("FatAnimal")) {
@@ -125,29 +124,42 @@ public class HammerAttack : MonoBehaviour {
                 }
 
                 Rigidbody rb = currentCollider.gameObject.GetComponent<Rigidbody>();
+                rb.velocity = new Vector3(0, 0, 0);
                 Vector3 directionVector = currentCollider.transform.position - hammerHitPoint.gameObject.transform.position;
                 float distance = Vector3.Distance(currentCollider.transform.position, hammerHitPoint.gameObject.transform.position);
                 if(distance <= hammerCrushArea.radius) {
-                    Debug.Log("Crushed (Not implemented yet)");
                     // In this case, is in crush area and mush apply the famous crush punishment!
                     // Dev note: to be crushed, the center of animal position must be in crush area (Not just the collider)
-                    // TODO: Add action (And kill the poor animal)
+
+                    // Remove gravity and can't be attacked again
+                    currentCollider.gameObject.transform.parent = this.transform.parent; // Must be child of the platform now
+                    currentCollider.enabled = false;
+                    currentCollider.GetComponent<Rigidbody>().isKinematic = true;
+
+                    // Flatten the animal on the ground
+                    Vector3 newScale        = currentCollider.gameObject.transform.localScale;
+                    Vector3 newPosition     = currentCollider.gameObject.transform.localPosition;
+                    newScale.y              = 0f;
+                    newPosition.y           = 0.30f; //To place the animal exactly on the ground
+                    currentCollider.gameObject.transform.localScale = newScale;
+                    currentCollider.gameObject.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+                    currentCollider.gameObject.transform.localPosition = newPosition;
+
                 }
                 else {
                     // In this case, in push area but not in crush area
                     Vector3 directionNoraml = Vector3.Normalize(directionVector);
-                    rb.velocity = new Vector3(0, 0, 0);
-                    rb.AddForce((Vector3.up * hammerForceVertical) / Mathf.Pow(distance, reducFactor));
-                    rb.AddForce((directionNoraml * hammerForceHorizontal) / Mathf.Pow(distance, reducFactor));
+                    rb.AddForce((Vector3.up * hammerForceVertical) / Mathf.Pow(distance, hammerReducFactor));
+                    rb.AddForce((directionNoraml * hammerForceHorizontal) / Mathf.Pow(distance, hammerReducFactor));
                 }
             }
         }
         Invoke("ResetAnim", 0.5f);
-            if (hitAnimal == true) {
-                AkSoundEngine.PostEvent("Play_Hit_Animals", gameObject);
-            } else {
-                AkSoundEngine.PostEvent("Play_Hit_Ground", gameObject);
-            }
+        if (hitAnimal == true) {
+            AkSoundEngine.PostEvent("Play_Hit_Animals", gameObject);
+        } else {
+            AkSoundEngine.PostEvent("Play_Hit_Ground", gameObject);
+        }
     }
 
     private void ResetAnim() {
