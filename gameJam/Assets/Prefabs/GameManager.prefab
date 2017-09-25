@@ -5060,6 +5060,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4670696855373938}
   - component: {fileID: 114073753591115098}
+  - component: {fileID: 114947355810784998}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -10918,10 +10919,22 @@ MonoBehaviour:
   spawnSpeedMin: 5
   spawnSpeedMax: 0.5
   spawnAccelerationSpeed: 0.3
-  catPrefab: {fileID: 1241625004194742, guid: 1ef2190536c7b1f43825fd09a38897d7, type: 2}
+  catPrefab: {fileID: 1241625004194742, guid: 1f12b5cdb914fcf4cadc51b77ccaf7b4, type: 2}
   dogPrefab: {fileID: 1838268213898928, guid: 7f572e9a6b7f5554f81139e08028d1aa, type: 2}
   listHoles:
   - {fileID: 0}
-  minOpenFrequency: 15
-  maxOpenFrequency: 15
-  maxOpenedHolesConcurrently: 2
+  - {fileID: 0}
+  minOpenFrequency: 5
+  maxOpenFrequency: 5
+  maxOpenedHolesConcurrently: 1
+--- !u!114 &114947355810784998
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1935340491627578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 155a5f5b906fa57419435c16e05295fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
