@@ -6,6 +6,9 @@ public class Death_Wall : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        Destroy(other.gameObject);
+        if (other.gameObject.CompareTag("FatAnimal")) {
+            Destroy(other.gameObject);
+        }
+        
     }
 }

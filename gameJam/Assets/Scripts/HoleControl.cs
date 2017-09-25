@@ -23,7 +23,7 @@ public class HoleControl : MonoBehaviour {
     private float   openDuration;
 
     private float   currentOpeningTimer; // Internally used
-    private Collider holeCollider;
+    public Collider holeCollider;
 
 
     // ------------------------------------------------------------------------
@@ -64,6 +64,7 @@ public class HoleControl : MonoBehaviour {
             this.isOpen = false;
             this.isClosing = false;
             this.isOpening = false;
+
             this.holeCollider.enabled = false;
         }
     }
@@ -87,10 +88,12 @@ public class HoleControl : MonoBehaviour {
             this.isOpen = true;
             this.isOpening = true;
             this.isClosing = false;
+            if (holeCollider == null) {
+                holeCollider = GetComponent<Collider>();
+            }
             this.openDuration = Random.Range(minOpenDuration, maxOpenDuration);
             this.holeCollider.enabled = true;
             black.transform.localPosition = new Vector3(0,0,0.04f);
-            Debug.Log("Open");
 
             return true;
         }

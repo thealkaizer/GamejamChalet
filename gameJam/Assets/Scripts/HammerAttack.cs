@@ -10,6 +10,9 @@ public class HammerAttack : MonoBehaviour {
     // Variables
     // ------------------------------------------------------------------------
 
+    public Animator playerAnim;
+    PlayerController controllerScript;
+
     //UI
     public Image radialCooldown;
 
@@ -49,6 +52,7 @@ public class HammerAttack : MonoBehaviour {
 
     void Start() {
         CharacterPlayer = ReInput.players.GetPlayer(0);
+        controllerScript = GetComponent<PlayerController>();
     }
 
 	// Update is called once per frame
@@ -59,17 +63,17 @@ public class HammerAttack : MonoBehaviour {
 
         // Handle inputs
         if(pokeInput) {
-            Debug.Log("POKE");
             this.pokeAttack();
         }
         else if(hammerInput) {
-            Debug.Log("Hammer");
             this.bigHammerAttack();
         }
     }
 
     /** Process a simple poke attack */
     private void pokeAttack() {
+        playerAnim.SetInteger("AnimInt", 2);
+        Invoke("ResetAnim", 0.4f);
         AkSoundEngine.PostEvent("Play_Push_Animals", gameObject);
         if(!this.pokeIsReady) {
             // Not available yet
@@ -99,6 +103,7 @@ public class HammerAttack : MonoBehaviour {
         }
 
         //Feedback
+        playerAnim.SetInteger("AnimInt", 3);
         Camera.main.DOShakePosition(0.4f, 0.2f, 10, 80, true);
         GameObject dustInstance = Instantiate(dust, new Vector3(hammerHitPoint.gameObject.transform.position.x, hammerHitPoint.gameObject.transform.position.y +0.4f, hammerHitPoint.gameObject.transform.position.z), Quaternion.Euler(90f, 0f, 0f));
         Destroy(dustInstance, 3f);
@@ -110,12 +115,15 @@ public class HammerAttack : MonoBehaviour {
         for(int i = 0;i < hitColliders.Length;i++) {
             Collider currentCollider = hitColliders[i];
             if(currentCollider.gameObject.CompareTag("FatAnimal")) {
+
+                //SOUND
                 hitAnimal = true;
                 if (currentCollider.gameObject.GetComponent<AnimalControl>().id == 1) {
                     AkSoundEngine.PostEvent("SFX_Hit_Cat", gameObject);
                 } else {
                     AkSoundEngine.PostEvent("SFX_Hit_Dog", gameObject);
                 }
+
                 Rigidbody rb = currentCollider.gameObject.GetComponent<Rigidbody>();
                 Vector3 directionVector = currentCollider.transform.position - hammerHitPoint.gameObject.transform.position;
                 float distance = Vector3.Distance(currentCollider.transform.position, hammerHitPoint.gameObject.transform.position);
@@ -134,13 +142,16 @@ public class HammerAttack : MonoBehaviour {
                 }
             }
         }
+        Invoke("ResetAnim", 0.5f);
             if (hitAnimal == true) {
-                Debug.Log("ANIMAL");
                 AkSoundEngine.PostEvent("Play_Hit_Animals", gameObject);
             } else {
-                Debug.Log("GROUND");
                 AkSoundEngine.PostEvent("Play_Hit_Ground", gameObject);
             }
+    }
+
+    private void ResetAnim() {
+         playerAnim.SetInteger("AnimInt", 0);
     }
 
     private void updateAllColdowns() {

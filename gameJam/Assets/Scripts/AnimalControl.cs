@@ -24,7 +24,6 @@ public class AnimalControl : MonoBehaviour {
     }
 
     IEnumerator fixGravity() {
-        Debug.Log("fixgravity");
         GetComponent<Rigidbody>().useGravity = false;
         GetComponent<Rigidbody>().AddForce(Vector3.up * 25);
         yield return new WaitForFixedUpdate();
