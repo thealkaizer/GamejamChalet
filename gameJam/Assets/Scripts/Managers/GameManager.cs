@@ -242,18 +242,12 @@ public class GameManager : MonoBehaviour {
     }
 
     private void gameIsVictory() {
-        // TODO Debug to remove later
         Debug.Log("Victory");
-        Debug.Log("Current leve: " + currentBallanceLevel);
-        Debug.Log("Balance Level: " + balanceVictoryThreshold);
-        // TODO
+        // TODO Display victory ui elements + stop the game loop
     }
 
     private void gameIsGameOver() {
-        // TODO Debug to remove later
         Debug.Log("Defeat");
-        Debug.Log("Current leve: " + currentBallanceLevel);
-        Debug.Log("Balance Level: " + balanceVictoryThreshold);
-        // TODO
+        // TODO Display game over ui elements + stop the game loop
     }
 }

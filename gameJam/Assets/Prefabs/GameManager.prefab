@@ -10918,7 +10918,7 @@ MonoBehaviour:
   - {fileID: 4925034090797406}
   - {fileID: 4698376867673894}
   spawnSpeedMin: 5
-  spawnSpeedMax: 1
+  spawnSpeedMax: 0.7
   spawnAccelerationSpeed: 0.3
   catPrefab: {fileID: 1241625004194742, guid: 1f12b5cdb914fcf4cadc51b77ccaf7b4, type: 2}
   dogPrefab: {fileID: 1838268213898928, guid: 7f572e9a6b7f5554f81139e08028d1aa, type: 2}
@@ -10929,7 +10929,7 @@ MonoBehaviour:
   maxOpenFrequency: 5
   maxOpenedHolesConcurrently: 1
   ui_timeText: {fileID: 0}
-  gameTime: 63
+  gameTime: 93
 --- !u!114 &114947355810784998
 MonoBehaviour:
   m_ObjectHideFlags: 1
