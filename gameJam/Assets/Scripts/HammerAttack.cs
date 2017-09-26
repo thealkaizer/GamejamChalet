@@ -11,7 +11,7 @@ public class HammerAttack : MonoBehaviour {
     // ------------------------------------------------------------------------
 
     public Animator         playerAnim;
-    PlayerController        controllerScript;
+    private PlayerController controllerScript;
 
     //UI
     public Image            radialCooldown;
@@ -52,8 +52,8 @@ public class HammerAttack : MonoBehaviour {
     // ------------------------------------------------------------------------
 
     void Start() {
-        CharacterPlayer = ReInput.players.GetPlayer(0);
-        controllerScript = GetComponent<PlayerController>();
+        CharacterPlayer     = ReInput.players.GetPlayer(0);
+        controllerScript    = GetComponent<PlayerController>();
     }
 
 	// Update is called once per frame

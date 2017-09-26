@@ -388,6 +388,7 @@ MonoBehaviour:
   id: 1
   cat: 1
   dog: -1
+  landed: 0
 --- !u!135 &135053233426354378
 SphereCollider:
   m_ObjectHideFlags: 1

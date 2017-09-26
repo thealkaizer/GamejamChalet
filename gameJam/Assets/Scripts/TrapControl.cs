@@ -2,28 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HoleControl : MonoBehaviour {
+public class TrapControl : MonoBehaviour {
     // ------------------------------------------------------------------------
     // Variables
     // ------------------------------------------------------------------------
-    public GameManager gameManager;
+    public GameManager  gameManager;
+    public GameObject   black;
 
-    public GameObject black;
+    public float        animalSinkingTime = 2f;
 
-    public float animalSinkingTime = 2f;
+    public float        openingSpeed;
+    public float        closingSpeed;
+    public int          minOpenDuration;
+    public int          maxOpenDuration;
 
-    public float    openingSpeed;
-    public float    closingSpeed;
-    public int      minOpenDuration;
-    public int      maxOpenDuration;
+    public bool         isOpen = false;
+    private bool        isOpening = false;
+    private bool        isClosing = false;
+    private float       openDuration;
 
-    public bool     isOpen = false;
-    private bool    isOpening = false;
-    private bool    isClosing = false;
-    private float   openDuration;
-
-    private float   currentOpeningTimer; // Internally used
-    public Collider holeCollider;
+    private float       currentOpeningTimer; // Internally used
+    private Collider    trapCollider;
 
 
     // ------------------------------------------------------------------------
@@ -32,15 +31,15 @@ public class HoleControl : MonoBehaviour {
 
     private void Start() {
         this.currentOpeningTimer = 0;
-        this.holeCollider = this.GetComponent<Collider>();
-        this.holeCollider.enabled = false;
+        this.trapCollider = this.GetComponent<Collider>();
+        this.trapCollider.enabled = false;
     }
 
     // Update is called once per frame
     void Update () {
         if(!isOpen) {
             this.currentOpeningTimer = 0;
-            this.holeCollider.enabled = false;
+            this.trapCollider.enabled = false;
             return;
         }
         this.currentOpeningTimer += Time.deltaTime;
@@ -65,7 +64,7 @@ public class HoleControl : MonoBehaviour {
             this.isClosing = false;
             this.isOpening = false;
 
-            this.holeCollider.enabled = false;
+            this.trapCollider.enabled = false;
         }
     }
 
@@ -83,16 +82,16 @@ public class HoleControl : MonoBehaviour {
         };
     }
 
-    public bool openHole() {
+    public bool openTrap() {
         if(!this.isOpen) {
             this.isOpen = true;
             this.isOpening = true;
             this.isClosing = false;
-            if (holeCollider == null) {
-                holeCollider = GetComponent<Collider>();
+            if (trapCollider == null) {
+                trapCollider = GetComponent<Collider>();
             }
             this.openDuration = Random.Range(minOpenDuration, maxOpenDuration);
-            this.holeCollider.enabled = true;
+            this.trapCollider.enabled = true;
             black.transform.localPosition = new Vector3(0,0,0.04f);
 
             return true;

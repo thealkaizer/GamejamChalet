@@ -46,11 +46,11 @@ public class GameManager : MonoBehaviour {
 
 
     // Traps management variables
-    public GameObject[] listHoles;
+    public GameObject[] listTraps;
     
-    public float minOpenFrequency;
-    public float maxOpenFrequency;
-    public int maxOpenedHolesConcurrently = 1;
+    public float    minOpenFrequency;
+    public float    maxOpenFrequency;
+    public int      maxOpenedHolesConcurrently = 1;
 
     private int openedHoleCounter = 0;
 
@@ -217,10 +217,10 @@ public class GameManager : MonoBehaviour {
     }
 
     private void openRandomHole() {
-        int pos = Random.Range(0, listHoles.Length);
-        GameObject o = listHoles[pos];
-        HoleControl holeControl = o.GetComponent<HoleControl>();
-        holeControl.openHole();
+        int pos = Random.Range(0, listTraps.Length);
+        GameObject o = listTraps[pos];
+        TrapControl trapControl = o.GetComponent<TrapControl>();
+        trapControl.openTrap();
     }
 
 
