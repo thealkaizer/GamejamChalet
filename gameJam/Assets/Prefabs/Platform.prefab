@@ -197,7 +197,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4015232212028952}
   - component: {fileID: 135256310440841110}
-  - component: {fileID: 114418519404635966}
   m_Layer: 0
   m_Name: hammerPushArea
   m_TagString: Player
@@ -1237,17 +1236,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   maxAngle: 20
---- !u!114 &114418519404635966
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1290218227795730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9387fdd3b98413c46b9f03d3255fdb4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114434278685716964
 MonoBehaviour:
   m_ObjectHideFlags: 1
