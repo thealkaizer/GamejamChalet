@@ -10925,10 +10925,12 @@ MonoBehaviour:
   listTraps:
   - {fileID: 0}
   - {fileID: 0}
-  minOpenFrequency: 5
-  maxOpenFrequency: 5
+  minOpenFrequency: 12
+  maxOpenFrequency: 12
   maxOpenedHolesConcurrently: 1
   ui_timeText: {fileID: 0}
+  ui_victoryText: {fileID: 0}
+  ui_gameOverText: {fileID: 0}
   gameTime: 93
 --- !u!114 &114947355810784998
 MonoBehaviour:

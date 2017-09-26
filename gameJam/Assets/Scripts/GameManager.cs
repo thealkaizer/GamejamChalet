@@ -36,29 +36,31 @@ public class GameManager : MonoBehaviour {
 
 
     // Spawning variables
-    public Transform[] spawnPoints;
-    public float spawnSpeedMin = 5f;
-    public float spawnSpeedMax = 0.1f;
-    public float spawnAccelerationSpeed = 0.2f;
+    public Transform[]  spawnPoints;
+    public float        spawnSpeedMin = 5f;
+    public float        spawnSpeedMax = 0.1f;
+    public float        spawnAccelerationSpeed = 0.2f;
 
-    public GameObject catPrefab;
-    public GameObject dogPrefab;
+    public GameObject   catPrefab;
+    public GameObject   dogPrefab;
 
 
     // Traps management variables
     public GameObject[] listTraps;
     
-    public float    minOpenFrequency;
-    public float    maxOpenFrequency;
-    public int      maxOpenedHolesConcurrently = 1;
+    public float        minOpenFrequency;
+    public float        maxOpenFrequency;
+    public int          maxOpenedHolesConcurrently = 1;
 
-    private int openedHoleCounter = 0;
+    private int         openedHoleCounter = 0; // Not actually used yet
 
 
     // Game Time variables
-    public Text ui_timeText;
-    public int gameTime;
-    private int remainingTime;
+    public Text         ui_timeText;
+    public GameObject   ui_victoryText;
+    public GameObject   ui_gameOverText;
+    public int          gameTime;
+    private int         remainingTime;
 
 
     // ------------------------------------------------------------------------
@@ -71,7 +73,7 @@ public class GameManager : MonoBehaviour {
         this.ui_catCounter.text = "Cats: 0";
         this.ui_dogCounter.text = "Dogs: 0";
         this.remainingTime = gameTime;
-    }
+}
 	
 	// Update is called once per frame
 	void Update () {
@@ -242,12 +244,12 @@ public class GameManager : MonoBehaviour {
     }
 
     private void gameIsVictory() {
-        Debug.Log("Victory");
-        // TODO Display victory ui elements + stop the game loop
+        Time.timeScale = 0;
+        this.ui_victoryText.SetActive(true);
     }
 
     private void gameIsGameOver() {
-        Debug.Log("Defeat");
-        // TODO Display game over ui elements + stop the game loop
+        Time.timeScale = 0;
+        this.ui_gameOverText.SetActive(true);
     }
 }
