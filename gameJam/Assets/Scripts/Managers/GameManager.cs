@@ -17,21 +17,22 @@ public class GameManager : MonoBehaviour {
      */
 
     // Balance variables
-    public GameObject ui_balancePivot;
-    public Text ui_dogCounter;
-    public Text ui_catCounter;
+    public GameObject   ui_balancePivot;
+    public Text         ui_dogCounter;
+    public Text         ui_catCounter;
 
-    private int nbAnimals = 0;
-    private int nbCats = 0;
-    private int nbDogs = 0;
+    private int         nbAnimals = 0;
+    private int         nbCats = 0;
+    private int         nbDogs = 0;
 
-    private float percentNbCats = 0;
-    private float percentNbDogs = 0;
+    private float       percentNbCats = 0;
+    private float       percentNbDogs = 0;
 
-    public float balanceSensibility = 1;
-    private float currentBallanceLevel = 0;
+    public float        balanceSensibility = 1; // Speed the balance array is moving to new value
+    public float        balanceVictoryThreshold;
+    private float       currentBallanceLevel = 0;
 
-    private int currentAnimalTrence = 0; // -1 if dogs, 1 if cats, 0 if perfect balance
+    private int         currentAnimalTrence = 0; // -1 if dogs, 1 if cats, 0 if perfect balance
 
 
     // Spawning variables
@@ -44,7 +45,7 @@ public class GameManager : MonoBehaviour {
     public GameObject dogPrefab;
 
 
-    // Hole management variables
+    // Traps management variables
     public GameObject[] listHoles;
     
     public float minOpenFrequency;
@@ -54,9 +55,14 @@ public class GameManager : MonoBehaviour {
     private int openedHoleCounter = 0;
 
 
+    // Game Time variables
+    public Text ui_timeText;
+    public int gameTime;
+    private int remainingTime;
+
 
     // ------------------------------------------------------------------------
-    // Functions
+    // Unity Functions
     // ------------------------------------------------------------------------
     void Start() {
         // TMP (Probably to be moved later)
@@ -64,11 +70,13 @@ public class GameManager : MonoBehaviour {
         this.startOpeningHoles();
         this.ui_catCounter.text = "Cats: 0";
         this.ui_dogCounter.text = "Dogs: 0";
+        this.remainingTime = gameTime;
     }
 	
 	// Update is called once per frame
 	void Update () {
         this.updateBalance();
+        this.updateGameTimer();
         this.calculateNewBalance();
         this.processBalanceActions();
     }
@@ -78,14 +86,15 @@ public class GameManager : MonoBehaviour {
     // Balance manager
     // ------------------------------------------------------------------------
 
+    /** Add one cat in the trap. */
     public void addOneCat() {
         this.nbAnimals++;
         this.nbCats++;
         this.ui_catCounter.text = "Cats: " + nbCats;
         AkSoundEngine.PostEvent("Play_Hole_Animals", gameObject);
-        
     }
 
+    /** Add one dog in the trap. */
     public void addOneDog() {
         this.nbAnimals++;
         this.nbDogs++;
@@ -93,9 +102,7 @@ public class GameManager : MonoBehaviour {
         AkSoundEngine.PostEvent("Play_Hole_Animals", gameObject);
     }
 
-    /**
-     * Update data and the balance value
-     */
+    /** Update data and the balance value. */
     private void updateBalance() {
         // Special case of 0 animals
         if(nbAnimals == 0) {
@@ -189,7 +196,7 @@ public class GameManager : MonoBehaviour {
 
 
     // ------------------------------------------------------------------------
-    // Hole
+    // Traps
     // ------------------------------------------------------------------------
     private void startOpeningHoles() {
         openRandomHole();
@@ -214,5 +221,39 @@ public class GameManager : MonoBehaviour {
         GameObject o = listHoles[pos];
         HoleControl holeControl = o.GetComponent<HoleControl>();
         holeControl.openHole();
+    }
+
+
+    // ------------------------------------------------------------------------
+    // Time management
+    // ------------------------------------------------------------------------
+    private void updateGameTimer() {
+        this.remainingTime = this.gameTime - (int)Time.time;
+        if(remainingTime <= 0) {
+            ui_timeText.text = "0";
+            if(this.currentBallanceLevel >= -balanceVictoryThreshold && this.currentBallanceLevel <= balanceVictoryThreshold) {
+                this.gameIsVictory();
+            }
+            else {
+                this.gameIsGameOver();
+            }
+        }
+        ui_timeText.text = "" + this.remainingTime;
+    }
+
+    private void gameIsVictory() {
+        // TODO Debug to remove later
+        Debug.Log("Victory");
+        Debug.Log("Current leve: " + currentBallanceLevel);
+        Debug.Log("Balance Level: " + balanceVictoryThreshold);
+        // TODO
+    }
+
+    private void gameIsGameOver() {
+        // TODO Debug to remove later
+        Debug.Log("Defeat");
+        Debug.Log("Current leve: " + currentBallanceLevel);
+        Debug.Log("Balance Level: " + balanceVictoryThreshold);
+        // TODO
     }
 }
